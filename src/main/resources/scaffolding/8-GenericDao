@@ -1,0 +1,69 @@
+-- Copy if the methods do not exist -- 
+	
+	public <Type extends GenericModel> boolean deleteGenericModel(Type type, String query) throws Exception {
+		logger.info("${ModuleName}-SERVICE : Inside {}. Parameter :  {}", Thread.currentThread().getStackTrace()[1].getMethodName(), type);
+		final DataSourceCriteria criteria = Transformers.getCriteriaFromPoJo(type);
+		boolean result;
+		try {
+			final DataSourceResultSet wsResult = DataCloud.perform(query, criteria);
+			result = wsResult.getUpdateCount() > 0;
+		} catch (final Exception e) {
+			logger.error("${ModuleName}-SERVICE : Error in {} ProjectPath {}", query, e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
+		logger.info("${ModuleName}-SERVICE :  Returning from {}. Result Success : {} ", query, result);
+		return result;
+	}
+
+	public <Type extends GenericModel> long mergeGenericModel(User user, Type type, String query) throws Exception {
+		logger.info("${ModuleName}-SERVICE : Inside {}. Parameter :  {}", Thread.currentThread().getStackTrace()[1].getMethodName(), type);
+		final DataSourceCriteria criteria = Transformers.getCriteriaFromPoJo(type);
+		criteria.put("createdBy", user.getUserId());
+		criteria.put("lastModifiedBy", user.getUserId());
+		long key;
+		try {
+			final DataSourceResultSet wsResult = DataCloud.perform(query, criteria);
+			key = wsResult.getDSKey();
+		} catch (final Exception e) {
+			logger.error("${ModuleName}-SERVICE : Error in {}  {}", query, e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
+		logger.info("${ModuleName}-SERVICE :  Returning from {}. Result Success : {} ", query, key);
+		return key;
+	}
+	
+	public <Type> List<Type> searchGenericModel(Object any, String query, Class<Type> className) throws Exception {
+		logger.info("${ModuleName}-SERVICE : Inside {}. Parameter :  {}", Thread.currentThread().getStackTrace()[1].getMethodName(), any);
+		final DataSourceCriteria criteria = Transformers.getCriteriaFromPoJo(any);
+		final List<Type> resultList = new ArrayList<>();
+		try {
+			final DataSourceResultSet wsResult = DataCloud.perform(query, criteria);
+			wsResult.getRows().stream().forEach(ds -> resultList.add(Transformers.getPojoFromDataSourceResult(className, ds)));
+		} catch (final Exception e) {
+			logger.error("${ModuleName}-SERVICE : Error in search {}", e.getMessage());
+			e.printStackTrace();
+			throw e;
+		}
+		logger.info("${ModuleName}-SERVICE :  Returning from {}. Result :  {}", Thread.currentThread().getStackTrace()[1].getMethodName(), resultList);
+		return resultList;
+	}
+
+	public <Type> Type getGenericModel(Object any, String query, Class<Type> className) throws Exception {
+		logger.info("${ModuleName}-SERVICE : Inside {}. Parameter :  {}", Thread.currentThread().getStackTrace()[1].getMethodName(), any);
+		final DataSourceCriteria criteria = Transformers.getCriteriaFromPoJo(any);
+		try {
+			final DataSourceResultSet wsResult = DataCloud.perform(query, criteria);
+			if(wsResult.getRowCount() > 0) {
+				return Transformers.getPojoFromDataSourceResult(className, wsResult.getFirst());
+			}
+		} catch (final Exception e) {
+			logger.error("${ModuleName}-SERVICE : Error in search  {}", e.getMessage());
+			throw e;
+		}
+		logger.info("${ModuleName}-SERVICE :  Returning from {}. Result :  {}", Thread.currentThread().getStackTrace()[1].getMethodName());
+		return null;
+	}
+
+	

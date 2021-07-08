@@ -1,0 +1,48 @@
+
+INSERT INTO ${TableName}(
+<#list fields as field>
+	<#if field.name != 'LAST_MODIFIED_DATE' && field.name != 'LAST_MODIFIED_BY'>
+	${field.name}<#sep>,
+	</#if>
+</#list>
+) VALUES(
+<#list fields as field>
+	<#if field.name != 'LAST_MODIFIED_DATE' && field.name != 'LAST_MODIFIED_BY'>
+		<#if field.name = 'CREATED_DATE'>
+	NOW(),
+		<#else>
+	:${field.name}:<#sep>,
+		</#if>
+	</#if>
+</#list>
+) on duplicate key 
+UPDATE 
+<#list fields as field>
+	<#if field.primary = 0>
+		<#if field.name != 'CREATED_DATE' && field.name != 'CREATED_BY'>
+			<#if field.name = 'LAST_MODIFIED_DATE'>
+	${field.name} = NOW()<#sep>,
+			<#else>
+	${field.name} = :${field.name}:<#sep>,
+			</#if>
+		</#if>
+	</#if>
+</#list>);
+
+'DELETE FROM ${TableName} WHERE ${primaryField.name} = :${primaryField.name}:';
+
+'SELECT 
+<#list fields as field>
+${field.name}, 
+</#list>
+
+FROM ${TableName} WHERE 1=1 
+<#list fields as field>
+	<#if field.type == 'String'>
+	<IF> :${field.name}: != null && :${field.name}: != '' <THEN> AND ${field.name} = :${field.name}:  <ENDIF>
+	<#elseif field.type == 'Date'>
+	<IF> :${field.name}: != null <THEN> AND ${field.name} = :${field.name}:  <ENDIF>
+	<#else>
+	<IF> :${field.name}: != null && :${field.name}: != 0 <THEN> AND ${field.name} = :${field.name}:  <ENDIF>
+	</#if>
+</#list>;

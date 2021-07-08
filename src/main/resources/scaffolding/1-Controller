@@ -1,0 +1,91 @@
+@slf4j
+@RestController
+public class ${ClassName}Controller {
+
+	@Autowired
+	${ClassName}Service service;
+	
+	@RequestMapping(value = "/save${ClassName}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Returns output details", notes = "Service", response = ${ClassName}.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successful retrieval service", response = ${ClassName}.class),
+			@ApiResponse(code = 400, message = "Invalid input provided"),
+			@ApiResponse(code = 404, message = "Data does not exist"), })
+	@ResponseStatus(value = HttpStatus.OK)
+	public void save${ClassName}(@RequestHeader("user") String userJSON, @RequestBody ${ClassName} ${ClassVariableName}) throws Exception {
+		log.debug("${ModuleName}-SERVICE : Entering {} with Parameter :  {}", Thread.currentThread().getStackTrace()[1].getMethodName(), ${ClassVariableName});
+		final ObjectMapper mapper = new ObjectMapper();
+		final User user = mapper.readValue(userJSON, User.class);
+		 service.save${ClassName}s(${ClassVariableName});
+	}
+	
+	@RequestMapping(value = "/getAll${ClassName}Details", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Returns output details", notes = "Service", response = ${ClassName}.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successful retrieval service", response = ${ClassName}.class),
+			@ApiResponse(code = 400, message = "Invalid input provided"),
+			@ApiResponse(code = 404, message = "Data does not exist"), })
+	@ResponseStatus(value = HttpStatus.OK)
+	public List<${ClassName}> getAll${ClassName}Details(@RequestHeader("user") String userJSON, @RequestBody ${ClassName} ${ClassVariableName}) throws Exception {
+		log.debug("${ModuleName}-SERVICE : Entering {} with Parameter :  {}", Thread.currentThread().getStackTrace()[1].getMethodName(), ${ClassVariableName});
+		final ObjectMapper mapper = new ObjectMapper();
+		final User user = mapper.readValue(userJSON, User.class);
+
+		final List<${ClassName}> ${ClassVariableName}List = service.getAll${ClassName}Details(${ClassVariableName});
+		log.debug("${ModuleName}-SERVICE : Query ${ClassName} {} by User {}", ${ClassVariableName}List, user);
+		return  ${ClassVariableName}List;
+	}
+	
+	@RequestMapping(value = "/get${ClassName}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Returns output details", notes = "Service", response = ${ClassName}.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successful retrieval service", response = ${ClassName}.class),
+			@ApiResponse(code = 400, message = "Invalid input provided"),
+			@ApiResponse(code = 404, message = "Data does not exist"), })
+	@ResponseStatus(value = HttpStatus.OK)
+	public ${ClassName} get${ClassName}(@RequestHeader("user") String userJSON, @RequestBody ${ClassName} ${ClassVariableName}) throws Exception {
+		log.debug("${ModuleName}-SERVICE : Entering {} with Parameter :  {}", Thread.currentThread().getStackTrace()[1].getMethodName(), ${ClassVariableName});
+		final ObjectMapper mapper = new ObjectMapper();
+		final User user = mapper.readValue(userJSON, User.class);
+
+		final ${ClassName} ${ClassVariableName} = service.get${ClassName}(${ClassVariableName});
+		log.debug("${ModuleName}-SERVICE : Query ${ClassName} {} by User {}", ${ClassVariableName}, user);
+		return  ${ClassVariableName};
+	}
+	
+	@RequestMapping(value = "/merge${ClassName}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Returns output details", notes = "Service", response = ${ClassName}.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successful retrieval service", response = ${ClassName}.class),
+			@ApiResponse(code = 400, message = "Invalid input provided"),
+			@ApiResponse(code = 404, message = "Data does not exist"), })
+	@ResponseStatus(value = HttpStatus.OK)
+	public long merge${ClassName}(@RequestHeader("user") String userJSON, @RequestBody ${ClassName} ${ClassVariableName}) throws Exception {
+		log.debug("${ModuleName}-SERVICE : Entering {} with Parameter :  {}", Thread.currentThread().getStackTrace()[1].getMethodName(), ${ClassVariableName});
+		final ObjectMapper mapper = new ObjectMapper();
+		final User user = mapper.readValue(userJSON, User.class);
+
+		long key = service.merge${ClassName}(user,${ClassVariableName});
+		log.debug("${ModuleName}-SERVICE : Query ${ClassName} details {} by User {}", ${ClassVariableName}, user);
+		return  key;
+	}
+	
+	@RequestMapping(value = "/delete${ClassName}", method = RequestMethod.POST, produces =  MediaType.APPLICATION_JSON )
+	@ApiOperation(value = "Returns output details", notes = "Service", response = Boolean.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successful retrieval service", response = Boolean.class),
+			@ApiResponse(code = 400, message = "Invalid input provided"),
+			@ApiResponse(code = 404, message = "Data does not exist"), })
+	@ResponseStatus(value = HttpStatus.OK)
+
+	public boolean delete${ClassName}(@RequestHeader("user") String userJSON, @RequestBody ${ClassName} ${ClassVariableName} ) throws Exception {
+		log.debug("${ModuleName}-SERVICE : Entering {} with Parameter :  {}", Thread.currentThread().getStackTrace()[1].getMethodName(), ${ClassVariableName} );
+		final ObjectMapper mapper = new ObjectMapper();
+		final User user = mapper.readValue(userJSON, User.class);
+
+		final boolean isDeleted = service.delete${ClassName}(user, ${ClassVariableName} );
+
+		log.debug("${ModuleName}-SERVICE : Deleting ${ClassName} details Record {} by User {}",  isDeleted, user);
+		return isDeleted;
+	}
+}

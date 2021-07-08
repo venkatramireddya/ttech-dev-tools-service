@@ -1,0 +1,42 @@
+-- Copy if the methods do not exist -- 
+import java.text.SimpleDateFormat;
+import java.util.Map;
+
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tanvi.webkit.datacloud.DataSourceCriteria;
+import com.tanvi.webkit.datacloud.DataSourceResult;
+
+@Component
+public class DefaultModelMapper implements ModelMapper {
+	
+	final protected ObjectMapper mapperDeSerialize;
+	final protected ObjectMapper mapperSerialize;
+
+	public DefaultModelMapper() {
+		mapperSerialize = new ObjectMapper();
+		mapperSerialize.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+		mapperSerialize.setDateFormat(new SimpleDateFormat("YYYY-MM-dd"));
+		
+		mapperDeSerialize = new ObjectMapper();
+		mapperDeSerialize.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+		mapperDeSerialize.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	}
+
+	public <Type extends Object> Type deSerialize(DataSourceResult ds, Class<Type> className) {
+		Type type = mapperDeSerialize.convertValue(ds, className);
+		return type;
+	}
+
+	public DataSourceCriteria serialize(Object object) {
+		Map<String, Object> map = mapperSerialize.convertValue(object, new TypeReference<Map<String, Object>>() {
+		});
+		DataSourceCriteria criteria = new DataSourceCriteria();
+		criteria.putAll(map);
+		return criteria;
+	}
+
+}

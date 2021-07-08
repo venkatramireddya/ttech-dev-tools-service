@@ -1,0 +1,20 @@
+# Oracle settings
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+    username: ttech
+    password: ttech
+    
+server:
+  port: 9006
+---
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: ${hibernate_dialect:org.hibernate.dialect.OracleDialect}
+        show-sql: true
+        format-sql: true

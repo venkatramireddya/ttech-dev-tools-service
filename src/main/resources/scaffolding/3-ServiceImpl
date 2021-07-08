@@ -1,0 +1,27 @@
+@Component
+public class ${ClassName}ServiceImpl implements ${ClassName}Service {
+
+	@Autowired
+	GenericDao genericDao;
+	
+	@Override
+	public void save${ClassName}s(${ClassName} ${ClassVariableName}) throws Exception {
+		return genericDao.searchGenericModel(${ClassVariableName}, DataCloudServices.${ClassName}.search${ClassName}, ${ClassName}.class);
+	}
+
+	@Override
+	public long merge${ClassName}(User user, ${ClassName} ${ClassVariableName}) throws Exception {
+		return genericDao.mergeGenericModel(user, ${ClassVariableName}, DataCloudServices.${ClassName}.merge${ClassName});
+	}
+
+	@Override
+	public boolean delete${ClassName}(User user, ${ClassName} ${ClassVariableName}) throws Exception {
+		return genericDao.deleteGenericModel(${ClassVariableName}, DataCloudServices.${ClassName}.delete${ClassName});
+	}
+
+	@Override
+	public ${ClassName} get${ClassName}(${ClassName} ${ClassVariableName}) throws Exception {
+		return genericDao.getGenericModel(${ClassVariableName}, DataCloudServices.${ClassName}.search${ClassName}, ${ClassName}.class);
+	}
+
+}

@@ -1,0 +1,15 @@
+@Setter
+@Getter
+@ToString
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ${ClassName} extends GenericModel {
+
+<#list fields as field>
+	<#if field.name != 'CREATED_BY' && field.name != 'CREATED_DATE' && field.name != 'LAST_MODIFIED_BY' && field.name != 'LAST_MODIFIED_DATE'>
+	@ColumnMap(columnName = "${field.name}", dbDataType = DBDataTypes.${field.dbDataType})
+	private ${field.type} ${field.nameCamelCase};
+	
+	</#if>
+</#list>
+}

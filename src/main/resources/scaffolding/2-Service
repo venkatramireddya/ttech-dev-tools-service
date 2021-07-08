@@ -1,0 +1,10 @@
+@Service
+public interface ${ClassName}Service {
+
+	void save${ClassName}s(${ClassName} ${ClassVariableName}) throws Exception;
+	List<${ClassName}> getAll${ClassName}s(${ClassName} ${ClassVariableName}) throws Exception;
+	long merge${ClassName}(User user, ${ClassName} ${ClassVariableName}) throws Exception;
+	boolean delete${ClassName}(User user, ${ClassName} ${ClassVariableName}) throws Exception;
+	${ClassName} get${ClassName}(${ClassName} ${ClassVariableName}) throws Exception;
+
+}
