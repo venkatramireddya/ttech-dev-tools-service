@@ -1,7 +1,8 @@
 repo_name: venkatramireddya/ttech-dev-tools-service
 report_id: bfbbeaa0456b4d16331b45c56dc4ad45
+version: 0.1
 repo_type: Public
-timestamp: '2023-11-09T11:39:57+00:00'
+timestamp: '2024-01-04T14:53:02+00:00'
 requested_by: venkatramireddya
 provider: github
 branch: master
@@ -16,6 +17,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/995/K85ZWV2F.png
+  detection_source_url: https://github.com/venkatramireddya/ttech-dev-tools-service
   detection_source: Repo Metadata
 - name: Apache FreeMarker
   description: A free Java-based template engine
@@ -27,7 +29,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Java Tools
   image_url: https://img.stackshare.io/service/4456/ymCgaIO0_400x400.jpg
-  detection_source_url: build.gradle
+  detection_source_url: https://github.com/venkatramireddya/ttech-dev-tools-service/blob/master/build.gradle
   detection_source: build.gradle
   last_updated_by: Venkat Ambati
   last_updated_on: 2021-07-08 14:29:49.000000000 Z
@@ -41,6 +43,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Frameworks (Full Stack)
   image_url: https://img.stackshare.io/service/2006/spring-framework-project-logo.png
+  detection_source_url: https://github.com/venkatramireddya/ttech-dev-tools-service/blob/master/build.gradle
   detection_source: build.gradle
   last_updated_by: Venkat Ambati
   last_updated_on: 2021-09-13 02:08:41.000000000 Z
@@ -52,6 +55,7 @@ tools:
   category: Data Stores
   sub_category: Databases
   image_url: https://img.stackshare.io/service/1030/leaf-360x360.png
+  detection_source_url: https://github.com/venkatramireddya/ttech-dev-tools-service/blob/master/build.gradle
   detection_source: build.gradle
   last_updated_by: Venkat Ambati
   last_updated_on: 2021-07-08 14:29:49.000000000 Z
@@ -63,6 +67,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/venkatramireddya/ttech-dev-tools-service
   detection_source: Repo Metadata
 - name: Gradle
   description: A powerful build system for the JVM
@@ -73,7 +78,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Java Build Tools
   image_url: https://img.stackshare.io/service/975/gradlephant-social-black-bg.png
-  detection_source: gradlew.bat
+  detection_source_url: https://github.com/venkatramireddya/ttech-dev-tools-service/blob/master/build.gradle
+  detection_source: build.gradle
   last_updated_by: Venkat Ambati
   last_updated_on: 2021-09-13 02:08:41.000000000 Z
 - name: Apache Camel
@@ -85,6 +91,7 @@ tools:
   category: Application Hosting
   sub_category: Platform as a Service
   image_url: https://img.stackshare.io/service/3276/xWt1RFo6_400x400.jpg
+  detection_source_url: https://github.com/venkatramireddya/ttech-dev-tools-service/blob/master/src/main/resources/application.yml
   detection_source: src/main/resources/application.yml
   last_updated_by: Venkat Ambati
   last_updated_on: 2021-07-08 14:29:49.000000000 Z
